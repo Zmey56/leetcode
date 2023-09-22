@@ -6,35 +6,20 @@ type ListNode struct {
 }
 
 func deleteMiddle(head *ListNode) *ListNode {
-	arr := []int{}
-
+	// count list length
 	length := 0
-	current := head
-	for current != nil {
+	for node := head; node != nil; node = node.Next {
 		length++
-		current = current.Next
-		arr = append(arr, current.Val)
 	}
-
-	if len(arr) == 0 {
+	if length == 1 {
 		return nil
-	} else if len(arr) == 1 {
-		return head
-	} else {
-		target := length / 2
-
-		dummy := &ListNode{Val: arr[0]}
-		curDummy := dummy
-
-		for i := 1; i < len(arr); i++ {
-			if i != target {
-				newNode := &ListNode{Val: arr[i]}
-				curDummy.Next = newNode
-				curDummy = newNode
-			}
-
-		}
-
-		return dummy
 	}
+	middle := length / 2
+	// delete middle node
+	node := head
+	for i := 0; i < middle-1; i++ {
+		node = node.Next
+	}
+	node.Next = node.Next.Next
+	return head
 }
