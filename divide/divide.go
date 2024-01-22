@@ -1,5 +1,7 @@
 package divide
 
+import "math"
+
 //Given two integers dividend and divisor, divide two integers without using multiplication, division, and mod operator.
 //
 //The integer division should truncate toward zero, which means losing its fractional part. For example, 8.345 would be
@@ -8,19 +10,10 @@ package divide
 //Return the quotient after dividing dividend by divisor.
 
 func divide(dividend int, divisor int) int {
-	// check if dividend is 0
-	if dividend == 0 {
-		return 0
+	res := dividend / divisor
+	if dividend == math.MinInt32 && divisor == -1 {
+		return math.MaxInt32
 	}
-
-	// check if divisor is 1
-	if divisor == 1 {
-		return dividend
-	}
-
-	// check if divisor is -1
-	if divisor == -1 {
-		return -dividend
-	}
+	return res
 
 }

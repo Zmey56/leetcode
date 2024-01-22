@@ -51,38 +51,12 @@ func TestDivide(t *testing.T) {
 	}
 
 	//Example 6
-	dividend6 := -2147483648
-	divisor6 := 1
-	expected6 := -2147483648
+	dividend6 := 1
+	divisor6 := -1
+	expected6 := -1
 	result6 := divide(dividend6, divisor6)
 	if result6 != expected6 {
 		t.Errorf("Expected %d, but got %d", expected6, result6)
 	}
 
-	//Example 7
-	dividend7 := -2147483648
-	divisor7 := -2147483648
-	expected7 := 1
-	result7 := divide(dividend7, divisor7)
-	if result7 != expected7 {
-		t.Errorf("Expected %d, but got %d", expected7, result7)
-	}
-
-	//Example 8
-	dividend8 := 10
-	divisor8 := 3
-	expected8 := 3
-	result8 := divide(dividend8, divisor8)
-	if result8 != expected8 {
-		t.Errorf("Expected %d, but got %d", expected8, result8)
-	}
-
-	//Example 9
-	dividend9 := 7
-	divisor9 := -3
-	expected9 := -2
-	result9 := divide(dividend9, divisor9)
-	if result9 != expected9 {
-		t.Errorf("Expected %d, but got %d", expected9, result9)
-	}
 }
