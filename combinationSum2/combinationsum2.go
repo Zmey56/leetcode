@@ -1,5 +1,9 @@
 package combinationSum2
 
+import (
+	"sort"
+)
+
 //Given a collection of candidate numbers (candidates) and a target number (target), find all unique combinations in
 //candidates where the candidate numbers sum to target.
 //
@@ -7,29 +11,35 @@ package combinationSum2
 //
 //Note: The solution set must not contain duplicate combinations.
 
-func combinationSum2(candidates []int, target int) [][]int {
-	var result [][]int
-	var path []int
-	backtrack(&result, path, candidates, target, 0)
-	return result
-}
+func combinationUtil(cc *[]int, candidates []int, idx, currentSum, target, cclen int, res *[][]int) {
+	if currentSum == target {
+		combi := make([]int, cclen)
+		copy(combi, *cc)
 
-func backtrack(result *[][]int, path []int, candidates []int, target int, start int) {
-	if target < 0 {
+		*res = append(*res, combi)
+
 		return
 	}
-	if target == 0 {
-		temp := make([]int, len(path))
-		copy(temp, path)
-		*result = append(*result, temp)
-		return
-	}
-	for i := start; i < len(candidates); i++ {
-		if i > start && candidates[i] == candidates[i-1] {
+
+	for i := idx; i < len(candidates); i++ {
+		if i > idx && candidates[i] == candidates[i-1] {
 			continue
 		}
-		path = append(path, candidates[i])
-		backtrack(result, path, candidates, target-candidates[i], i+1)
-		path = path[:len(path)-1]
+
+		if currentSum+candidates[i] > target {
+			break
+		}
+		(*cc)[cclen] = candidates[i]
+		combinationUtil(cc, candidates, i+1, currentSum+candidates[i], target, cclen+1, res)
 	}
+}
+
+func combinationSum2(candidates []int, target int) [][]int {
+	sort.Ints(candidates)
+
+	var res [][]int
+	cc := make([]int, target)
+	combinationUtil(&cc, candidates, 0, 0, target, 0, &res)
+
+	return res
 }

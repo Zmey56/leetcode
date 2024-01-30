@@ -35,15 +35,16 @@ func TestCombinationSum2(t *testing.T) {
 
 	for _, tt := range test {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := combinationSum2(tt.candidates, tt.target); !compare(got, tt.want) {
-				t.Errorf("combinationSum2() = %v, want %v", got, tt.want)
+			if got := combinationSum2(tt.candidates, tt.target); !compareTest(got, tt.want) {
+				t.Errorf("combinationSum2() = %v, want %v, target = %v", got, tt.want, tt.target)
 			}
 		})
 	}
+
 }
 
 // compare compares two 2D slices of ints
-func compare(a, b [][]int) bool {
+func compareTest(a, b [][]int) bool {
 	if len(a) != len(b) {
 		return false
 	}
