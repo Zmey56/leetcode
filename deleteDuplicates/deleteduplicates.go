@@ -1,5 +1,7 @@
 package deleteDuplicates
 
+import "log"
+
 //Given the head of a sorted linked list, delete all duplicates such that each element appears only once.
 //Return the linked list sorted as well.
 
@@ -26,6 +28,7 @@ func deleteDuplicates(head *ListNode) *ListNode {
 		tmpValue = value
 		newSlice = append(newSlice, value)
 	}
+	log.Println(newSlice)
 
 	//create ListNode from slice
 	return createListNode(newSlice)
