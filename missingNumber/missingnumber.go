@@ -1,0 +1,23 @@
+package missingNumber
+
+import "sort"
+
+//Given an array nums containing n distinct numbers in the range [0, n],
+//return the only number in the range that is missing from the array.
+
+func missingNumber(nums []int) int {
+	lenNums := len(nums)
+
+	sort.Ints(nums)
+
+	count := 0
+	for _, i := range nums {
+		if i != count {
+			return count
+		}
+		count++
+	}
+
+	return lenNums
+
+}
