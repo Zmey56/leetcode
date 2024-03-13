@@ -8,3 +8,21 @@ package firstBadVersion
 //
 //You are given an API bool isBadVersion(version) which returns whether version is bad.
 //Implement a function to find the first bad version. You should minimize the number of calls to the API.
+
+func firstBadVersion(n int) int {
+	left := 1
+	right := n
+	for left < right {
+		mid := left + (right-left)/2
+		if isBadVersion(mid) {
+			right = mid
+		} else {
+			left = mid + 1
+		}
+	}
+	return left
+}
+
+func isBadVersion(version int) bool {
+	return true
+}
