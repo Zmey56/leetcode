@@ -1,26 +1,27 @@
 package thirdMax
 
+import (
+	"log"
+	"sort"
+)
+
 // Given an integer array nums, return the third distinct maximum number in this array.
 //If the third maximum does not exist, return the maximum number.
 
 func thirdMax(nums []int) int {
-	values := make(map[int]bool)
-	count := 0
+	m := make(map[int]int)
+	var res []int
 	for _, v := range nums {
-		if !values[v] {
-			values[v] = true
-			count++
-		}
-
-		if len(values) > 2 {
-			break
-		}
+		m[v]++
 	}
-
-	result := 0
-	for _, v := range values {
-		if v
+	for k, _ := range m {
+		res = append(res, k)
 	}
-
+	sort.Ints(res)
+	log.Println("RES", res)
+	if len(res) < 3 {
+		return res[len(res)-1]
+	}
+	return res[len(res)-3]
 
 }
