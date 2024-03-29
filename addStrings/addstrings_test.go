@@ -25,6 +25,16 @@ func Test_addStrings(t *testing.T) {
 			num2: "0",
 			want: "0",
 		},
+		{
+			num1: "999",
+			num2: "999",
+			want: "1998",
+		},
+		{
+			num1: "584",
+			num2: "18",
+			want: "602",
+		},
 	}
 	for _, tt := range tests {
 		if got := addStrings(tt.num1, tt.num2); got != tt.want {
