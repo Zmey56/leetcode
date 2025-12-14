@@ -8,38 +8,60 @@ package findSubstringV2
 //Return an array of the starting indices of all the concatenated substrings in s. You can return the answer in any order.
 
 func findSubstring(s string, words []string) []int {
-	wordFrequency := make(map[string]int)
+	if len(words) == 0 || len(s) == 0 {
+		return []int{}
+	}
 
+	wordLen := len(words[0])
+	wordCount := len(words)
+	totalLen := wordLen * wordCount
+
+	if len(s) < totalLen {
+		return []int{}
+	}
+
+	wordFreq := make(map[string]int)
 	for _, word := range words {
-		wordFrequency[word]++
+		wordFreq[word]++
 	}
 
 	var res []int
 
-	length := len(words[0])
-
-	for i := 0; i < len(s)-length*len(words)+1; i++ {
+	// Process each offset (0 to wordLen-1)
+	for offset := 0; offset < wordLen; offset++ {
+		left := offset
+		count := 0
 		seen := make(map[string]int)
 
-		for j := 0; j < len(words); j++ {
-			nextIndex := i + j*length
-			word := s[nextIndex : nextIndex+length]
+		for right := offset; right <= len(s)-wordLen; right += wordLen {
+			word := s[right : right+wordLen]
 
-			if _, ok := wordFrequency[word]; !ok {
-				break
-			}
+			if freq, exists := wordFreq[word]; exists {
+				seen[word]++
+				count++
 
-			seen[word]++
+				// Shrink window if we have too many of this word
+				for seen[word] > freq {
+					leftWord := s[left : left+wordLen]
+					seen[leftWord]--
+					count--
+					left += wordLen
+				}
 
-			seenFrequency, _ := seen[word]
-			originFrequency, _ := wordFrequency[word]
-
-			if seenFrequency > originFrequency {
-				break
-			}
-
-			if j+1 == len(words) {
-				res = append(res, i)
+				// Check if we have a valid window
+				if count == wordCount {
+					res = append(res, left)
+					// Slide window by one word
+					leftWord := s[left : left+wordLen]
+					seen[leftWord]--
+					count--
+					left += wordLen
+				}
+			} else {
+				// Reset window if word not in dictionary
+				seen = make(map[string]int)
+				count = 0
+				left = right + wordLen
 			}
 		}
 	}
