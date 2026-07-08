@@ -1,9 +1,5 @@
 package main
 
-import (
-	"fmt"
-)
-
 //205. Isomorphic Strings
 
 // Given two strings s and t, determine if they are isomorphic.
@@ -20,12 +16,8 @@ func isIsomorphic(s string, t string) bool {
 
 	letters := make(map[byte]byte)
 	used := make(map[byte]bool)
-	// runeS := []rune(s)
-	// runeT := []rune(t)
 
 	for i := 0; i < len(s); i++ {
-		fmt.Printf("runeS, %s\n", string(l))
-		fmt.Println("MAP ", letters)
 		if m, ok := letters[s[i]]; ok {
 			if m != t[i] {
 				return false
